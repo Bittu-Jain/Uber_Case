@@ -23,12 +23,14 @@ object obj {
 					val df = spark.read.format("csv").option("header", "true")
 					.load("file:///c://data/anblicks.txt")
 
+					df.show()
+
 					df.createOrReplaceTempView("temp")
 
 					val df1 = spark.sql("""select product,
-							floor(total_quantity/monthly_sale)%30 as month,
-							((total_quantity%monthly_sale)) as days
-							from temp""")
+					  floor(total_quantity/monthly_sale)%30 as month,
+					  ((total_quantity%monthly_sale)) as days
+					    from temp""")
 
 					df1.show()
 
